@@ -18,6 +18,11 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void addHaveBusiness(Product product) {
+        productRepository.add(product);
+    }
 
+    @Override
+    public Product findById(Long id) {
+        return productRepository.findById(id);
     }
 }

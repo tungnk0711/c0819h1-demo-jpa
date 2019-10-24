@@ -5,4 +5,5 @@ import java.util.List;
 public interface GeneralService<E> {
     List<E> findAllHaveBusiness();
     void addHaveBusiness(E e);
+    E findById(Long id);
 }
