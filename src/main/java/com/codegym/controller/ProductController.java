@@ -22,10 +22,12 @@ public class ProductController {
     @GetMapping("/list")
     public ModelAndView findAll() {
 
+        Iterable<Product> productListByName = productService.findByName("OPPO");
+
         Product product = productService.findById(Long.valueOf("3"));
 
 
-        List<Product> productList = productService.findAllHaveBusiness();
+        Iterable<Product> productList = productService.findAllHaveBusiness();
 
         ModelAndView modelAndView = new ModelAndView("/product/list");
         modelAndView.addObject("products", productList);

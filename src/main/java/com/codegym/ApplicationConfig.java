@@ -2,6 +2,7 @@ package com.codegym;
 
 import com.codegym.repository.ProductRepository;
 import com.codegym.repository.ProductRepositoryImpl;
+import com.codegym.repository.ProductRepositorySpringData;
 import com.codegym.service.ProductService;
 import com.codegym.service.ProductServiceImpl;
 import org.springframework.beans.BeansException;
@@ -11,6 +12,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -37,6 +39,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @EnableSpringDataWebSupport
 @ComponentScan("com.codegym.controller")
+@EnableJpaRepositories("com.codegym.repository")
 public class ApplicationConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
