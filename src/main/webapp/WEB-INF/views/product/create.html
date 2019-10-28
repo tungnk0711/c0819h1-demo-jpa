@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1 class="title">Create Product</h1>
-<form th:action="@{/product/save-product}" th:object="${product}" method="post">
+<form th:action="@{/product/save-product}" th:object="${product}" method="post" enctype="multipart/form-data">
     <table>
         <tr>
             <td>Name:</td>
@@ -16,6 +16,10 @@
         <tr>
             <td>Price:</td>
             <td><input type="text" th:field="*{price}"/></td>
+        </tr>
+        <tr>
+            <td>Image:</td>
+            <td><input type="file" th:field="*{image}"/></td>
         </tr>
         <tr>
             <td></td>

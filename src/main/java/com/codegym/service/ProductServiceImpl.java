@@ -10,22 +10,22 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService{
 
     @Autowired
-    //private ProductRepository productRepository;
-    private ProductRepositorySpringData productRepositorySpringData;
+    private ProductRepository productRepository;
+    //private ProductRepositorySpringData productRepositorySpringData;
 
     @Override
-    public Iterable<Product> findAllHaveBusiness() {
-        //return productRepository.findAll();
-        return productRepositorySpringData.findAll();
+    public List<Product> findAllHaveBusiness() {
+        return productRepository.findAll();
+        //return productRepositorySpringData.findAll();
     }
 
     @Override
     public void addHaveBusiness(Product product) {
-        //productRepository.add(product);
-        productRepositorySpringData.save(product);
+        productRepository.add(product);
+        //productRepositorySpringData.save(product);
     }
 
-    @Override
+    /*@Override
     public Product findById(Long id) {
         //return productRepository.findById(id);
         return productRepositorySpringData.findOne(id);
@@ -34,5 +34,5 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Iterable<Product> findByName(String name) {
         return productRepositorySpringData.findTop3ByName(name);
-    }
+    }*/
 }
