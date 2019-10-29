@@ -7,11 +7,12 @@
 </head>
 <body>
 <h1 class="title">Create Product</h1>
-<form th:action="@{/product/save-product}" th:object="${product}" method="post" enctype="multipart/form-data">
+<form th:action="@{/product/save-product}" th:object="${productform}" method="post" enctype="multipart/form-data">
     <table>
         <tr>
             <td>Name:</td>
             <td><input type="text" th:field="*{name}"/></td>
+            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
         </tr>
         <tr>
             <td>Price:</td>

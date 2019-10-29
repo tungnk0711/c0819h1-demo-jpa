@@ -2,9 +2,18 @@ package com.codegym.model;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class ProductForm {
     private Long id;
+
+    @NotEmpty
+    @Size(min = 2, max = 30)
+    @Pattern(regexp="^[A-Za-z]*$", message = "String must A-Za-z")
     private String name;
+
     private Double price;
     private MultipartFile image;
 

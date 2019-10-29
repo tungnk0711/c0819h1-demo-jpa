@@ -9,6 +9,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,7 +51,7 @@ public class ProductController {
     @GetMapping("/create-product")
     public ModelAndView createForm() {
         ModelAndView modelAndView = new ModelAndView("/product/create");
-        modelAndView.addObject("product", new ProductForm());
+        modelAndView.addObject("productform", new ProductForm());
         return modelAndView;
     }
 
@@ -62,11 +63,13 @@ public class ProductController {
     }
 
     @PostMapping("/save-product")
-    public ModelAndView saveProduct(@ModelAttribute ProductForm productform, BindingResult result) {
+    public ModelAndView saveProduct(@Validated @ModelAttribute("productform") ProductForm productform, BindingResult result) {
 
         // thong bao neu xay ra loi
         if (result.hasErrors()) {
-            System.out.println("Result Error Occured" + result.getAllErrors());
+            ModelAndView modelAndView = new ModelAndView("/product/create");
+            modelAndView.addObject("product", new ProductForm());
+            return modelAndView;
         }
 
         // lay ten file
@@ -90,11 +93,11 @@ public class ProductController {
         //productService.save(productObject);
         productService.addHaveBusiness(productObject);
 
-
         ModelAndView modelAndView = new ModelAndView("/product/create");
         modelAndView.addObject("product", new ProductForm());
-        modelAndView.addObject("message", "New product created successfully");
+        modelAndView.addObject("message","successes!");
         return modelAndView;
+
     }
 
     /*@ModelAttribute("product")
