@@ -1,5 +1,6 @@
 package com.codegym.controller;
 
+import com.codegym.model.MyCounter;
 import com.codegym.model.Product;
 import com.codegym.model.ProductForm;
 import com.codegym.service.ProductService;
@@ -10,13 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -33,17 +34,32 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/list")
-    public ModelAndView findAll() {
-
-        //Iterable<Product> productListByName = productService.findByName("OPPO");
-
-        //Product product = productService.findById(Long.valueOf("3"));
-
+    public ModelAndView findAll(HttpSession httpSession, HttpServletRequest request) {
 
         List<Product> productList = productService.findAllHaveBusiness();
 
         ModelAndView modelAndView = new ModelAndView("/product/list");
         modelAndView.addObject("products", productList);
+
+        //MyCounter myCounter = (MyCounter) httpSession.getAttribute("mycounter");
+        //int counter = myCounter.getCount();
+
+
+        //get all cookies
+        Cookie[] cookies = request.getCookies();
+        //iterate each cookie
+        for (Cookie ck : cookies) {
+            //display only the cookie with the name 'setUser'
+            if (ck.getName().equals("setUser")) {
+                modelAndView.addObject("cookieValue", ck);
+                break;
+            }
+        }
+
+
+        //Iterable<Product> productListByName = productService.findByName("OPPO");
+
+        //Product product = productService.findById(Long.valueOf("3"));
 
         return modelAndView;
     }
